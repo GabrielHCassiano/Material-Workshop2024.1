@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditorInternal;
 using UnityEngine;
 
-public class MoveControl : MonoBehaviour
+public class PlayerMove : MonoBehaviour
 {
     private Rigidbody2D rb;
 
@@ -11,8 +11,6 @@ public class MoveControl : MonoBehaviour
     private bool inputJump;
 
     [SerializeField] private Transform checkGround;
-    [SerializeField] private LayerMask layerMask;
-
 
     private Vector2 move;
     public float speed;

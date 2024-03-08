@@ -6,14 +6,13 @@ using UnityEngine;
 public class AnimControl : MonoBehaviour
 {
     private Animator animator;
-    private MoveControl moveControl;
+    private PlayerMove moveControl;
 
-    private bool isFlip;
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
-        moveControl = GetComponent<MoveControl>();
+        moveControl = GetComponent<PlayerMove>();
     }
 
     // Update is called once per frame
