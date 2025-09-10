@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerControl : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private Animator animator;
 
     public float inputHorizontal;
     public bool inputJump;
@@ -16,6 +18,7 @@ public class PlayerControl : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -23,6 +26,8 @@ public class PlayerControl : MonoBehaviour
     {
         InputLogic();
         JumpLogic();
+        FlipLogic();
+        AnimatorLogic();
     }
 
     private void FixedUpdate()
@@ -42,12 +47,27 @@ public class PlayerControl : MonoBehaviour
         rb.linearVelocity = new Vector2(inputHorizontal * speed, rb.linearVelocity.y);
     }
 
-    public  void JumpLogic()
+    public void JumpLogic()
     {
         if (inputJump && inGround)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, forceJump);
         }
+    }
+
+    public void FlipLogic()
+    {
+        if (inputHorizontal != 0)
+        {
+            transform.localScale = new Vector3(inputHorizontal, 1, 1);
+        }
+    }
+
+    public void AnimatorLogic()
+    {
+        animator.SetFloat("Horizontal", rb.linearVelocity.x);
+        animator.SetFloat("Vertical", rb.linearVelocity.y);
+        animator.SetBool("InGround", inGround);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
